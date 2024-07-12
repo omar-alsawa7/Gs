@@ -1,9 +1,9 @@
 clc; clear; close all;
 
-SectionNum = 7; % section number
-GroupNum = 2; % Group number
+SectionNum = 7; 
+GroupNum = 2; 
 
-%% 1. Plot the original signal x(t) for -5 < t < 5 
+%Plot the initial signal x(t) for -5 < t < 5 
 % Define time range 
 SamplingFreq = 16000; 
 SamplingPer = 1/SamplingFreq; 
