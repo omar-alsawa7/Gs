@@ -1,10 +1,12 @@
-clc; clear; close all;
+clc;
+clear; 
+close all;
 
-SectionNumber = 7; % section number
-GroupNumber = 2; % Group number
+SectionNumber = 7; 
+GroupNumber = 2; 
 
-%% 1. Plot the original signal x(t) for -5 < t < 5 
-% Define time range 
+%%  Plot the original signal x(t) for -5 < t < 5 
+% Specify the time frame. 
 SamplingFreq = 16000; 
 SamplingPeriod = 1/SamplingFreq; 
 time = -5:SamplingPeriod:5; 
@@ -21,7 +23,7 @@ ylabel('Amplitude');
 title('x(t) = |t| for -1 <= t <= 1 and 0 elsewhere');
 grid on;
 
-%% 2. Plot the Time-Shifted signal shifted(t)
+%% 2.Plot the shifted(t) Time-Shifted signal.
 % shifted = x(t - 0.2 * s)
 shift = -0.2 * SectionNumber;
 shifted = zeros(size(time));
@@ -35,7 +37,7 @@ ylabel('Amplitude');
 title('shifted(t)');
 grid on;
 
-%% 3. Plot the Time-Scaled signal scaled(t)
+%% 3. Plot the scaled(t) time-scaled signal.
 alpha = 1/GroupNumber;
 scaled = zeros(size(time));
 scaled_time = time * alpha + shift;
@@ -68,7 +70,7 @@ ylabel('Amplitude');
 title('h(t)');
 grid on;
 
-%% 6. Compute and plot the magnitude spectrum of the input signal: |inputSignal(w)|
+%% 6.Determine and graph the input signal's magnitude spectrum using the formula |inputSignal(w)|.
 frequency = linspace(-SamplingFreq/2, SamplingFreq/2, length(signal)); 
 angularVelocity = 2 * pi * frequency; 
 numberOfPeriods = SamplingFreq;
@@ -81,7 +83,7 @@ title('|inputSignal(w)|');
 xlim([-50000 50000]);
 grid on;
 
-%% 7. Compute and plot the magnitude spectrum of the input signal: |inputSignalAmplitude(w)|
+%% 7. Determine and graph the input signal's magnitude spectrum using the formula |inputSignalAmplitude(w)|.
 inputSignalAmplitude = fft(scaledAmplitude) / numberOfPeriods; 
 figure;
 plot(angularVelocity, abs(fftshift(inputSignalAmplitude)), 'r', 'LineWidth', 1);
@@ -91,7 +93,7 @@ title('|inputSignalAmplitude(w)|');
 xlim([-50000 50000]);
 grid on;
 
-%% 8. Compute and plot the magnitude spectrum of the filtering system: |filterSystem(w)|
+%% 8.Determine and graph the filters system's magnitude spectrum using the formula |filterSystem(w)|.
 filterSystemFrequency = fft(filterSystem) / numberOfPeriods; 
 figure;
 plot(angularVelocity, fftshift(abs(filterSystemFrequency)), 'r', 'LineWidth', 1);
@@ -101,7 +103,7 @@ title('|filterSystem(w)|');
 xlim([-50000 50000]);
 grid on;
 
-%% 9. Compute and plot the magnitude spectrum of the output signal |outputSignal(w)|
+%% 9. Determine and graph the output signal's magnitude spectrum, |outputSignal(w)|.
 outputSignal = inputSignal .* filterSystemFrequency; 
 figure;
 plot(angularVelocity, abs(fftshift(outputSignal)), 'r', 'LineWidth', 1);
@@ -111,7 +113,7 @@ title('|outputSignal(w)|');
 xlim([-50000 50000]);
 grid on;
 
-%% 10. Compute and plot the time-domain output signal outputTime(t)
+%% 10. Determine and graph the output signal in the time domain, outputTime(t).
 outputTime = (ifft(outputSignal)) * numberOfPeriods;
 figure;
 plot(time, real(outputTime), 'r', 'LineWidth', 1);
@@ -120,7 +122,7 @@ ylabel('Amplitude');
 title('outputTime(t)');
 grid on;
 
-%% 11. Plot scaledAmplitude(t) and outputTime(t) on the same graph
+%% 11. Plot outputTime(t) and scaledAmplitude(t) on the same graph.
 figure;
 plot(time, real(outputTime), 'b', 'LineWidth', 1);
 hold on;
